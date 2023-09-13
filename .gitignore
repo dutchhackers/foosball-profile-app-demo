@@ -1,0 +1,3 @@
+# .gitignore
+# Exclude sensitive config files
+firebaseConfig.js
