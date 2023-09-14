@@ -42,7 +42,6 @@
     }
     .select h1 {
         padding-right: 50px;
-        margin-bottom: 50px;
     }
     .select select {
         padding-left: 20px;

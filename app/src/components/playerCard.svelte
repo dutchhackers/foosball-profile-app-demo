@@ -67,6 +67,7 @@
 		justify-content: center;
 		background-color: #1e1e1e;
 		border-radius: 10px;
+        margin-top: 30px;
 	}
 	.profile {
 		margin-top: 70px;
