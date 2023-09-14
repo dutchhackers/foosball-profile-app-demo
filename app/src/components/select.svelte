@@ -1,9 +1,6 @@
 <script async script>
 	import { createEventDispatcher } from 'svelte';
 	export let selectedId;
-	/**
-	 * @type {any}
-	 */
 	export let players;
 
 	let dispatch = createEventDispatcher();

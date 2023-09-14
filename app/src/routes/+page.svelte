@@ -3,9 +3,6 @@
 	import PlayerCard from '../components/playerCard.svelte';
     import { db } from '../firebase.js';
     import { collection, getDocs, query, where } from 'firebase/firestore';
-	/**
-	 * @type {any[]}
-	 */
 	let players = [];
 	let selected = false;
 
@@ -23,7 +20,6 @@
 
 	let selectedId = '';
 
-	// @ts-ignore
 	function updateName(Id) {
 		selected = true;
 		selectedId = Id.detail;
