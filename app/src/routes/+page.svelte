@@ -2,7 +2,7 @@
 	import Select from '../components/select.svelte';
 	import PlayerCard from '../components/playerCard.svelte';
     import { db } from '../firebase.js';
-    import { collection, getDocs } from 'firebase/firestore';
+    import { collection, getDocs, query, where } from 'firebase/firestore';
 	/**
 	 * @type {any[]}
 	 */
@@ -15,7 +15,8 @@
 
 	async function getData() {
 		const collectionRef = collection(db, 'players');
-		const querySnapshot = await getDocs(collectionRef);
+        const q = query(collectionRef, where('totalWins', '!=', 'undefined'))
+		const querySnapshot = await getDocs(q);
 
 		return querySnapshot.docs.map((doc) => doc.data());
 	}
@@ -45,6 +46,7 @@
         background-color: black;
     }
     :global(*) {
+        font-family: Arial, Helvetica, sans-serif;
         color: white;
     }
 </style>
