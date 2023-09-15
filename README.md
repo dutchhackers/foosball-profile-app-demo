@@ -1,1 +1,1 @@
-# foosball-profile-app-demo
+# Foosball Profile App demo
