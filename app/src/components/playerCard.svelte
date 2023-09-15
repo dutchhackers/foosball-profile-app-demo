@@ -33,11 +33,11 @@
 			<h2>Slack Id: {player.slackId}</h2>
 		{:else if player.totalLosses > player.totalWins}
 			<h2>
-				You have more losses than wins... <br />Losses: {player.totalLosses}💩 Wins: {player.totalWins}🔥
+				{player.name} has more losses than wins... <br />Losses: {player.totalLosses}💩 Wins: {player.totalWins}🔥
 			</h2>
 		{:else}
 			<h2>
-				You have more wins than losses! <br />Wins: {player.totalWins}🔥 Losses: {player.totalLosses}💩
+				{player.name} has more wins than losses! <br />Wins: {player.totalWins}🔥 Losses: {player.totalLosses}💩
 			</h2>
 		{/if}
 	</div>

@@ -2,7 +2,7 @@
 	import Select from '../components/select.svelte';
 	import PlayerCard from '../components/playerCard.svelte';
     import { db } from '../firebase.js';
-    import { collection, getDocs, query, where } from 'firebase/firestore';
+    import { collection, getDocs, orderBy, query, where } from 'firebase/firestore';
 	let players = [];
 	let selected = false;
 
@@ -12,7 +12,9 @@
 
 	async function getData() {
 		const collectionRef = collection(db, 'players');
-        const q = query(collectionRef, where('totalWins', '!=', 'undefined'))
+        const q = query(collectionRef, 
+		where('totalWins', '!=', 'undefined'),
+		orderBy('totalWins', 'desc'));
 		const querySnapshot = await getDocs(q);
 
 		return querySnapshot.docs.map((doc) => doc.data());
@@ -23,7 +25,6 @@
 	function updateName(Id) {
 		selected = true;
 		selectedId = Id.detail;
-		console.log(selectedId);
 	}
 
     function resetSelected() {
