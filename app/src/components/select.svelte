@@ -1,58 +1,61 @@
 <script async script>
 	import { createEventDispatcher } from 'svelte';
-	export let selectedId;
+	import { data } from '../storesUser/store.js';
+	import { goto } from '$app/navigation';
+
+	let player = null;
 	export let players;
 
-	let dispatch = createEventDispatcher();
+	function updatePlayer(selectedPlayer) {
+		player = selectedPlayer;
+		console.log(player);
 
-	function handleSelectChange(event) {
-		if (event.target.value === 'Pick a player') {
-			dispatch('resetSelected');
-			return;
+		data.set(player);
+		if (player) {
+			goto('/' + player.id);
 		}
-		selectedId = event.target.value;
-		dispatch('change', selectedId);
 	}
 </script>
 
-<div class="select">
-    <h1>Pick a Player to view</h1>
-	<select on:change={handleSelectChange} name="players" id="players">
-		<option value="Pick a player">Pick a Player</option>
-		{#each players as player}
-			{#if player.name === 'Michael Schilling' && player.id === 'mschilling@move4mobile.com'}
-				<option value={player.id}>{player.name}</option>
-			{:else if player.name !== 'Michael Schilling' && player.name !== 'Michael' && player.name !== '_Michael Schilling'}
-				<option value={player.id}>{player.name}</option>
-			{/if}
+<div class="container">
+	<h1>Players</h1>
+	<div class="grid">
+		{#each players as eachPlayer}
+			<button on:click={() => updatePlayer(eachPlayer)}>
+				{#if eachPlayer.avatar === null || eachPlayer.avatar === ''}
+					<img src="/avatar.jpg" alt="player avatar" />
+				{:else}
+					<img src={eachPlayer.avatar} alt="player avatar" />
+				{/if}
+			</button>
 		{/each}
-	</select>
+	</div>
 </div>
 
 <style>
-    .select {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: center;
-        margin-top: 50px;
-    }
-    .select h1 {
-        padding-right: 50px;
-    }
-    .select select {
-        padding-left: 20px;
-        width: 300px;
-        height: 50px;
-        border-radius: 10px;
-        border: none;
-        background-color: #1e1e1e;
-        color: white;
-        font-size: 20px;
-    }
-    .select select option {
-        background-color: #1e1e1e;
-        color: white;
-        font-size: 20px;
-    }
+	img {
+		max-width: 200px;
+		border-radius: 50%;
+		cursor: pointer;
+		border: 3px solid white;
+		transition: transform 0.2s;
+	}
+	img:hover {
+		transform: scale(1.1);
+	}
+	.grid {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		grid-gap: 1rem;
+	}
+	.container {
+		margin: 0 auto;
+		max-width: 1200px;
+		padding: 0 50px;
+	}
+	button {
+		background: none;
+		border: none;
+		border-radius: 50%;
+	}
 </style>
