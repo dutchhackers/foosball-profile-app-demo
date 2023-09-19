@@ -1,19 +1,18 @@
 <script>
-	import { createEventDispatcher } from 'svelte';
+	import { page } from '$app/stores';
+	import { goto } from '$app/navigation';
+	import { data } from '../../storesUser/store';
 
-	export let player;
-	
-	const dispatch = createEventDispatcher();
+	let player = null;
 
-	function updatePlayer() {
-		dispatch('goBack');
-	}
-
+	data.subscribe((data) => {
+		player = data;
+	});
 </script>
 
 <div class="card">
 	<div class="backbutton">
-		<button on:click={updatePlayer}>Back</button>
+		<button on:click={() => goto('/')}>Back</button>
 	</div>
 	<div class="title">
 		<h1>
@@ -24,7 +23,11 @@
 		</h1>
 	</div>
 	<div class="profile">
-		<img src={player.avatar} alt="player avatar" />
+		{#if player.avatar === null || player.avatar === ''}
+			<img src="/avatar.jpg" alt="player avatar" />
+		{:else}
+			<img src={player.avatar} alt="player avatar" />
+		{/if}
 		{#if !player.totalWins}
 			<h2>Slack Id: {player.slackId}</h2>
 		{:else if player.totalLosses > player.totalWins}
