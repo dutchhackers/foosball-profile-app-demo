@@ -4,8 +4,8 @@
 	import { firestore, auth } from '../firebase.js';
 	import { goto } from '$app/navigation';
 	import { collection, getDocs, orderBy, query, where } from 'firebase/firestore';
-	import { signOut } from 'firebase/auth';
-	
+	import ProfileMenu from '../components/profileMenu.svelte';
+
 	let players = [];
 
 	$: getData().then((result) => {
@@ -24,32 +24,27 @@
 		return querySnapshot.docs.map((doc) => doc.data());
 	}
 
+	function login() {
+		goto('/login');
+	}
+
 	const user = userStore(auth);
 
-	function login() {
-		setTimeout(() => {
-		goto('/login');
-		}, 1000);
-	}
+	console.log(user);
 </script>
 
+<svelte:head>
+	<title>Players</title>
+</svelte:head>
+
 <SignedIn>
-	<button on:click={() => signOut(auth)}>Sign out</button>
+	<ProfileMenu />
 	<Select {players} />
 </SignedIn>
 
 <SignedOut>
 	<slot />
-	Uitgelogd
 	{login()}
 </SignedOut>
 
-<style>
-	:global(body) {
-		background-color: black;
-	}
-	:global(*) {
-		font-family: Arial, Helvetica, sans-serif;
-		color: white;
-	}
-</style>
+

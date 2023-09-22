@@ -8,7 +8,6 @@
 
 	function updatePlayer(selectedPlayer) {
 		player = selectedPlayer;
-		console.log(player);
 
 		data.set(player);
 		if (player) {
@@ -18,16 +17,21 @@
 </script>
 
 <div class="container">
-	<h1>Players</h1>
 	<div class="grid">
 		{#each players as eachPlayer}
-			<button on:click={() => updatePlayer(eachPlayer)}>
-				{#if eachPlayer.avatar === null || eachPlayer.avatar === ''}
-					<img src="/avatar.jpg" alt="player avatar" />
-				{:else}
-					<img src={eachPlayer.avatar} alt="player avatar" />
-				{/if}
-			</button>
+			{#if eachPlayer.avatar === null || eachPlayer.avatar === ''}
+				<!-- svelte-ignore a11y-click-events-have-key-events -->
+				<!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
+				<img on:click={() => updatePlayer(eachPlayer)} src="/avatar.jpg" alt="player avatar" />
+			{:else}
+				<!-- svelte-ignore a11y-click-events-have-key-events -->
+				<!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
+				<img
+					on:click={() => updatePlayer(eachPlayer)}
+					src={eachPlayer.avatar}
+					alt="player avatar"
+				/>
+			{/if}
 		{/each}
 	</div>
 </div>

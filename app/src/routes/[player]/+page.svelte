@@ -10,6 +10,10 @@
 	});
 </script>
 
+<svelte:head>
+	<title>{player.name}</title>	
+</svelte:head>
+
 <div class="card">
 	<div class="backbutton">
 		<button on:click={() => goto('/')}>Back</button>
